@@ -21,6 +21,15 @@ npx tsc --init
 ### we are going to use the fastify 
 npm i fastify
 
+### to use cookies 
+npm i @fastify/cookie
+
+### to use .env files
+npm i dotenv
+
+### to use zod
+npm i zod
+
 ### let's run that
 npx tsx src/server.ts
 
