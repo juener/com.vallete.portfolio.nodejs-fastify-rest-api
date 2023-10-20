@@ -1,0 +1,41 @@
+## first steps
+
+### to init the package.json
+npm init -y 
+
+### since the nodejs doesn't support TS, make TS as development dependency
+npm i -D typescript
+
+### install the @types/node as development dependency
+npm install -D @types/node
+
+### instal the tsx as development dependency
+npm install tsx -D
+
+### create the tsconfig.json
+npx tsc --init
+
+### to get the new features, change in tsconfig.json
+"target": "es2016" to "target": "es2020"
+
+### we are going to use the fastify 
+npm i fastify
+
+### let's run that
+npx tsx src/server.ts
+
+### or add the "dev": "tsx watch src/server.ts" to the package.json and just run
+npm run dev
+
+
+## for this project we are going to use knex + sqlite3
+
+### install knex and its driver for sqlite3
+### https://knexjs.org/guide/#configuration-options
+npm install knex sqlite3
+
+### add the script "knex": "node --no-warnings --loader tsx ./node_modules/.bin/knex" to the package.json and just run when you want to migrate
+npm run knex -- migrate:make create-transactions
+
+### run whenever the migration is ready to be deployed
+npm run knex -- migrate:latest or npm run knex -- migrate:rollback
