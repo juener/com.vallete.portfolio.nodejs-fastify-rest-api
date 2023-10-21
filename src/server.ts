@@ -1,23 +1,9 @@
-import fastify from 'fastify';
-import { transactionRoutes } from './routes/transactions';
-import cookie from '@fastify/cookie'
+import { app } from './app';
+import { env } from './env';
 
-const app = fastify();
-
-app.register(cookie)
-
-app.register(transactionRoutes, {
-    prefix: 'transactions'
-})
-
-app.get('/ok', () => {
-    return `That's OK!`;
-});
-
-const port = 3333;
 app.listen({
-    port: port
+    port: env.APP_PORT
 }).then(() => {
-    console.log(`The server is running on the ${port} port.`);
+    console.log(`The server is running on the ${env.APP_PORT} port.`);
 });
 

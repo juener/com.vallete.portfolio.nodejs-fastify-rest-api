@@ -48,3 +48,17 @@ npm run knex -- migrate:make create-transactions
 
 ### run whenever the migration is ready to be deployed
 npm run knex -- migrate:latest or npm run knex -- migrate:rollback
+
+
+## tests
+
+### we are going to use the vitest as development dependency
+npm i vitest -D 
+
+### add "test": "vitest" to the package.json and just run
+npm run test
+
+### install the supertest as development dependency 
+npm i supertest -D
+npm i -D @types/supertest
+

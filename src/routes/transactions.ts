@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto'
 import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
 
 export async function transactionRoutes(app: FastifyInstance) {
-    app.addHook('preHandler', async(request, reply) => {
+    app.addHook('preHandler', async (request, reply) => {
         console.log(`[${request.method} ${request.url}]`)
     })
 
@@ -16,13 +16,11 @@ export async function transactionRoutes(app: FastifyInstance) {
             .where('session_id', sessionId)
             .select('*')
 
-        return {
-            transactions
-        }
+        return reply.status(200).send({ transactions: transactions })
     })
 
-    app.get('/:id', { preHandler: [checkSessionIdExists] }, async (request) => {
-        const sessionId = request.cookies
+    app.get('/:id', { preHandler: [checkSessionIdExists] }, async (request, reply) => {
+        const { sessionId } = request.cookies
 
         const getTransactionsParamSchema = z.object({
             id: z.string().uuid()
@@ -32,27 +30,25 @@ export async function transactionRoutes(app: FastifyInstance) {
 
         const transaction = await knex('transactions')
             .where({
-                id, 
+                id,
                 session_id: sessionId
             })
             .first()
 
-        return {
-            transaction
-        }
+        return reply.status(200).send({ transaction: transaction })
     })
 
-    app.get('/summary', { preHandler: [checkSessionIdExists] }, async (request) => {
-        const sessionId = request.cookies
+    app.get('/summary', { preHandler: [checkSessionIdExists] }, async (request, reply) => {
+        const { sessionId } = request.cookies
 
         const summary = await knex('transactions')
             .where('session_id', sessionId)
             .sum('amount', { as: 'amount' })
             .first()
 
-        return {
-            summary
-        }
+        const roundedAmount = Number(summary?.amount.toFixed(2)) // due to the JS inaccuracies
+
+        return reply.status(200).send({ summary: { amount: roundedAmount } })
     })
 
     app.post('/', async (request, reply) => {

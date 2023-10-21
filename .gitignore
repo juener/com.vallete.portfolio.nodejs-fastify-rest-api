@@ -2,3 +2,4 @@ node_modules
 
 ### I will not ignore the ./db, since this is a public project for tests.
 ### I will not ignore the .env file, since this is a public project for tests.
+### I will not ignore the .env.test file, since this is a public project for tests.
