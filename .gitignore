@@ -1,4 +1,6 @@
 node_modules
+dist
+build
 
 ### I will not ignore the ./db, since this is a public project for tests.
 ### I will not ignore the .env file, since this is a public project for tests.

@@ -62,3 +62,15 @@ npm run test
 npm i supertest -D
 npm i -D @types/supertest
 
+
+## deploy 
+
+### since our code is TS, we got to convert it to JS to deploy that
+npm i tsup -D
+
+### add "build": "tsup src" to the package.json and just run 
+npm run build
+or use "build": "tsup src --out-dir build" to define another out directory
+
+### besides I am not using the eslint for this project, I created the .eslintignore to ignore some folders
+node_modules dist build
